@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>nohup与循环</title>
+    <link href="/2023/10/20/nohup%E4%B8%8E%E5%BE%AA%E7%8E%AF/"/>
+    <url>/2023/10/20/nohup%E4%B8%8E%E5%BE%AA%E7%8E%AF/</url>
+    
+    <content type="html"><![CDATA[<h1 id="利用nohup和循环组合直接在后台运行循环任务"><a href="#利用nohup和循环组合直接在后台运行循环任务" class="headerlink" title="利用nohup和循环组合直接在后台运行循环任务"></a>利用nohup和循环组合直接在后台运行循环任务</h1><p>之前一直有个需求就是运行一些循环任务，包括对路径或者对文件的循环。之前为了用nohup挂在后台，一直都是写在sh文件里运行，但是文件一多就容易乱，并且<code>history</code>的时候也不太清晰。查阅了下资料，解决方案如下：</p><p><code>nohup sh -c &#39;for i in </code>seq 405<code>; do blastn -query /home/pengxi/mags_analysis/coassembly/metawrap_binning/refined_bins/MAG$&#123;i&#125;.fa -db hq_16S_db -out ./res/$&#123;i&#125;_res.txt -outfmt 6 -perc_identity 100;done&#39; &amp;</code></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux/Shell</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2023/10/13/hello-world/"/>
     <url>/2023/10/13/hello-world/</url>
