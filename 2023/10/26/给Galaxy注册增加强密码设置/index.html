@@ -16,21 +16,23 @@
   <meta name="author" content="Emmett Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="利用nohup和循环组合直接在后台运行循环任务之前一直有个需求就是运行一些循环任务，包括对路径或者对文件的循环。之前为了用nohup挂在后台，一直都是写在sh文件里运行，但是文件一多就容易乱，并且history的时候也不太清晰。查阅了下资料，解决方案如下： nohup sh -c &#39;for i in seq 405; do blastn -query &#x2F;home&#x2F;pengxi&#x2F;mags_a">
+    <meta name="description" content="生物信息平台Galaxy：增强设置密码的强度要求我们课题组的一些生物信息工具一般都利用Galaxy Platform来放到网页上形成可交互界面。近期我们有一个需求，就是让新注册的用户必须使用强密码，比如&gt;8位字符，必须同时包含大写、小写字母、数字。 咨询了一下galaxy platform的团队人员，给出以下办法：  找到&#x2F;path&#x2F;to&#x2F;galaxy&#x2F;lib&#x2F;galaxy&#x2F;security">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nohup与循环">
-<meta property="og:url" content="https://emmettpeng.github.io/2023/10/20/nohup%E4%B8%8E%E5%BE%AA%E7%8E%AF/index.html">
+<meta property="og:title" content="给Galaxy注册增加强密码设置">
+<meta property="og:url" content="https://emmettpeng.github.io/2023/10/26/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE/index.html">
 <meta property="og:site_name" content="mynote">
-<meta property="og:description" content="利用nohup和循环组合直接在后台运行循环任务之前一直有个需求就是运行一些循环任务，包括对路径或者对文件的循环。之前为了用nohup挂在后台，一直都是写在sh文件里运行，但是文件一多就容易乱，并且history的时候也不太清晰。查阅了下资料，解决方案如下： nohup sh -c &#39;for i in seq 405; do blastn -query &#x2F;home&#x2F;pengxi&#x2F;mags_a">
+<meta property="og:description" content="生物信息平台Galaxy：增强设置密码的强度要求我们课题组的一些生物信息工具一般都利用Galaxy Platform来放到网页上形成可交互界面。近期我们有一个需求，就是让新注册的用户必须使用强密码，比如&gt;8位字符，必须同时包含大写、小写字母、数字。 咨询了一下galaxy platform的团队人员，给出以下办法：  找到&#x2F;path&#x2F;to&#x2F;galaxy&#x2F;lib&#x2F;galaxy&#x2F;security">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-10-20T03:07:19.000Z">
-<meta property="article:modified_time" content="2023-10-20T03:21:06.005Z">
+<meta property="og:image" content="https://emmettpeng.github.io/source/img/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE1.jpg">
+<meta property="article:published_time" content="2023-10-26T06:41:23.000Z">
+<meta property="article:modified_time" content="2023-10-26T07:32:15.850Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://emmettpeng.github.io/source/img/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE1.jpg">
   
   
   
-  <title>nohup与循环 - mynote</title>
+  <title>给Galaxy注册增加强密码设置 - mynote</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="nohup与循环"></span>
+            <span id="subtitle" data-typed-text="给Galaxy注册增加强密码设置"></span>
           
         </div>
 
@@ -207,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-20 11:07" pubdate>
-          October 20, 2023 am
+        <time datetime="2023-10-26 14:41" pubdate>
+          October 26, 2023 pm
         </time>
       </span>
     
@@ -219,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          341 words
+          1.9k words
         
       </span>
     
@@ -230,7 +232,7 @@
         
         
         
-          3 mins
+          16 mins
         
       </span>
     
@@ -267,13 +269,34 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">nohup与循环</h1>
+            <h1 id="seo-header">给Galaxy注册增加强密码设置</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="利用nohup和循环组合直接在后台运行循环任务"><a href="#利用nohup和循环组合直接在后台运行循环任务" class="headerlink" title="利用nohup和循环组合直接在后台运行循环任务"></a>利用nohup和循环组合直接在后台运行循环任务</h1><p>之前一直有个需求就是运行一些循环任务，包括对路径或者对文件的循环。之前为了用nohup挂在后台，一直都是写在sh文件里运行，但是文件一多就容易乱，并且<code>history</code>的时候也不太清晰。查阅了下资料，解决方案如下：</p>
-<p><code>nohup sh -c &#39;for i in </code>seq 405<code>; do blastn -query /home/pengxi/mags_analysis/coassembly/metawrap_binning/refined_bins/MAG$&#123;i&#125;.fa -db hq_16S_db -out ./res/$&#123;i&#125;_res.txt -outfmt 6 -perc_identity 100;done&#39; &amp;</code></p>
+                <h1 id="生物信息平台Galaxy：增强设置密码的强度要求"><a href="#生物信息平台Galaxy：增强设置密码的强度要求" class="headerlink" title="生物信息平台Galaxy：增强设置密码的强度要求"></a>生物信息平台Galaxy：增强设置密码的强度要求</h1><p>我们课题组的一些生物信息工具一般都利用<a target="_blank" rel="noopener" href="https://galaxyproject.org/">Galaxy Platform</a>来放到网页上形成可交互界面。近期我们有一个需求，就是让新注册的用户必须使用强密码，比如&gt;8位字符，必须同时包含大写、小写字母、数字。</p>
+<p>咨询了一下galaxy platform的团队人员，给出以下办法：</p>
+<ol>
+<li>找到<code>/path/to/galaxy/lib/galaxy/security/validate_user_input.py</code>文件，并找到这一块：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Password validity parameters</span><br>PASSWORD_MIN_LEN = <span class="hljs-number">6</span><br><br><span class="hljs-comment"># Password rule: Must contain Uppercase letter, lowercase letter and number</span><br>VALID_PASSWORD_RE = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_email_str</span>(<span class="hljs-params">email</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Validates a string containing an email address.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> email:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No email address was provided.&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span>(VALID_EMAIL_RE.<span class="hljs-keyword">match</span>(email)):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;The format of the email address is not correct.&quot;</span><br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(email) &gt; EMAIL_MAX_LEN:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Email address cannot be more than %d characters in length.&quot;</span> % EMAIL_MAX_LEN<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_password_str</span>(<span class="hljs-params">password</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> password <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(password) &lt; PASSWORD_MIN_LEN:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Use a password of at least %d characters.&quot;</span> % PASSWORD_MIN_LEN<br>    <span class="hljs-comment"># Password validation</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> VALID_PASSWORD_RE.<span class="hljs-keyword">match</span>(password):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Password must contain at least one uppercase letter, one lowercase letter and one number.&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>修改<code>PASSWORD_MIN_LEN = 8</code>使得最小密码长度设置为8；</p>
+</li>
+<li><p>添加正则来要求字符种类：</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Password rule: Must contain Uppercase letter, lowercase letter and number</span><br>VALID_PASSWORD_RE = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<ol start="4">
+<li>然后在<code>def validate_password_str(password):</code>函数里面增加一个<code>if</code>条件来识别密码是否满足正则：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_password_str</span>(<span class="hljs-params">password</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> password <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(password) &lt; PASSWORD_MIN_LEN:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Use a password of at least %d characters.&quot;</span> % PASSWORD_MIN_LEN<br>    <span class="hljs-comment"># Password validation</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> VALID_PASSWORD_RE.<span class="hljs-keyword">match</span>(password):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Password must contain at least one uppercase letter, one lowercase letter and one number.&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<ol start="5">
+<li>现在如果在注册时，使用不符合要求的简单密码，就会出现以下警告：</li>
+</ol>
+<p><img src="/source/img/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE1.jpg" srcset="/img/loading.gif" lazyload alt="错误提示"></p>
+<h2 id="其他方案"><a href="#其他方案" class="headerlink" title="其他方案"></a>其他方案</h2><p>Galaxy团队人员还是推荐，如果真的要使用强密码或者mfa之类的设置，推荐使用external authentication的工具，如Keycloak，但是现在水平不够，还不会搞这些。鉴于上述的这种修改方式，在galaxy更新之后，很有可能会被覆盖掉，后面可能还需要再改，记录一下，以后查看。</p>
 
                 
               </div>
@@ -292,8 +315,15 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Linux-Shell/" class="category-chain-item">Linux/Shell</a>
+  <a href="/categories/Bioinformatics-tool/" class="category-chain-item">Bioinformatics tool</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/Bioinformatics-tool/Python/" class="category-chain-item">Python</a>
+  
+  
+
   
 
       </span>
@@ -312,8 +342,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>nohup与循环</div>
-      <div>https://emmettpeng.github.io/2023/10/20/nohup与循环/</div>
+      <div>给Galaxy注册增加强密码设置</div>
+      <div>https://emmettpeng.github.io/2023/10/26/给Galaxy注册增加强密码设置/</div>
     </div>
     <div class="license-meta">
       
@@ -325,7 +355,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>October 20, 2023</div>
+          <div>October 26, 2023</div>
         </div>
       
       
@@ -357,18 +387,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/26/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE/" title="给Galaxy注册增加强密码设置">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">给Galaxy注册增加强密码设置</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/13/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2023/10/20/nohup%E4%B8%8E%E5%BE%AA%E7%8E%AF/" title="nohup与循环">
+                        <span class="hidden-mobile">nohup与循环</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
