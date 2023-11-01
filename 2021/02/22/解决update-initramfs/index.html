@@ -16,21 +16,21 @@
   <meta name="author" content="Emmett Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="利用nohup和循环组合直接在后台运行循环任务之前一直有个需求就是运行一些循环任务，包括对路径或者对文件的循环。之前为了用nohup挂在后台，一直都是写在sh文件里运行，但是文件一多就容易乱，并且history的时候也不太清晰。查阅了下资料，解决方案如下： nohup sh -c &#39;for i in seq 405; do blastn -query &#x2F;home&#x2F;pengxi&#x2F;mags_a">
+    <meta name="description" content="最近在处理数据的时候，需要安装一些新的软件。但是遇到了这样一个问题，纠结了很久查了很多地方，也不知道怎么能行。最关键的是自己不是很了解相关的知识，很多操作也不知道能不能做！ 我用以下命令安装软件： 1sudo apt-get install XXXXX  这个命令很普通，但是突然有一天它就报错，错误信息是： 1E: dpkg was interrupted, you must manually r">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nohup与循环">
-<meta property="og:url" content="https://emmettpeng.github.io/2023/10/20/nohup%E4%B8%8E%E5%BE%AA%E7%8E%AF/index.html">
+<meta property="og:title" content="sudo dpkg --configure -a卡在内核更新update-initramfs的解决方案（可能版）">
+<meta property="og:url" content="https://emmettpeng.github.io/2021/02/22/%E8%A7%A3%E5%86%B3update-initramfs/index.html">
 <meta property="og:site_name" content="mynote">
-<meta property="og:description" content="利用nohup和循环组合直接在后台运行循环任务之前一直有个需求就是运行一些循环任务，包括对路径或者对文件的循环。之前为了用nohup挂在后台，一直都是写在sh文件里运行，但是文件一多就容易乱，并且history的时候也不太清晰。查阅了下资料，解决方案如下： nohup sh -c &#39;for i in seq 405; do blastn -query &#x2F;home&#x2F;pengxi&#x2F;mags_a">
+<meta property="og:description" content="最近在处理数据的时候，需要安装一些新的软件。但是遇到了这样一个问题，纠结了很久查了很多地方，也不知道怎么能行。最关键的是自己不是很了解相关的知识，很多操作也不知道能不能做！ 我用以下命令安装软件： 1sudo apt-get install XXXXX  这个命令很普通，但是突然有一天它就报错，错误信息是： 1E: dpkg was interrupted, you must manually r">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-10-20T03:07:19.000Z">
-<meta property="article:modified_time" content="2023-10-20T03:21:06.005Z">
+<meta property="article:published_time" content="2021-02-22T10:54:25.000Z">
+<meta property="article:modified_time" content="2023-11-01T06:51:14.122Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>nohup与循环 - mynote</title>
+  <title>sudo dpkg --configure -a卡在内核更新update-initramfs的解决方案（可能版） - mynote</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="nohup与循环"></span>
+            <span id="subtitle" data-typed-text="sudo dpkg --configure -a卡在内核更新update-initramfs的解决方案（可能版）"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-20 11:07" pubdate>
-          October 20, 2023 am
+        <time datetime="2021-02-22 18:54" pubdate>
+          February 22, 2021 pm
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          341 words
+          1.8k words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          3 mins
+          15 mins
         
       </span>
     
@@ -267,13 +267,35 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">nohup与循环</h1>
+            <h1 id="seo-header">sudo dpkg --configure -a卡在内核更新update-initramfs的解决方案（可能版）</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="利用nohup和循环组合直接在后台运行循环任务"><a href="#利用nohup和循环组合直接在后台运行循环任务" class="headerlink" title="利用nohup和循环组合直接在后台运行循环任务"></a>利用nohup和循环组合直接在后台运行循环任务</h1><p>之前一直有个需求就是运行一些循环任务，包括对路径或者对文件的循环。之前为了用nohup挂在后台，一直都是写在sh文件里运行，但是文件一多就容易乱，并且<code>history</code>的时候也不太清晰。查阅了下资料，解决方案如下：</p>
-<p><code>nohup sh -c &#39;for i in </code>seq 405<code>; do blastn -query /home/pengxi/mags_analysis/coassembly/metawrap_binning/refined_bins/MAG$&#123;i&#125;.fa -db hq_16S_db -out ./res/$&#123;i&#125;_res.txt -outfmt 6 -perc_identity 100;done&#39; &amp;</code></p>
+                <p>最近在处理数据的时候，需要安装一些新的软件。但是遇到了这样一个问题，纠结了很久查了很多地方，也不知道怎么能行。最关键的是自己不是很了解相关的知识，很多操作也不知道能不能做！</p>
+<p>我用以下命令安装软件：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">sudo apt<span class="hljs-literal">-get</span> install XXXXX<br></code></pre></td></tr></table></figure>
+
+<p>这个命令很普通，但是突然有一天它就报错，错误信息是：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">E: dpkg was interrupted, you must manually <span class="hljs-built_in">run</span> <span class="hljs-string">&#x27;sudo dpkg --configure -a&#x27;</span> <span class="hljs-keyword">to</span> correct the problem.<br></code></pre></td></tr></table></figure>
+
+<p>那你说要输那我就输入了<code>sudo dpkg --configure -a</code>，然后提示：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Setting</span> up initramfs-tools (<span class="hljs-number">0</span>.<span class="hljs-number">130</span>ubuntu3.<span class="hljs-number">11</span>) ...<br><span class="hljs-attribute">update</span>-initramfs: deferring update (trigger activated)<br><span class="hljs-attribute">Setting</span> up linux-image-<span class="hljs-number">4</span>.<span class="hljs-number">15</span>.<span class="hljs-number">0</span>-<span class="hljs-number">135</span>-generic (<span class="hljs-number">4</span>.<span class="hljs-number">15</span>.<span class="hljs-number">0</span>-<span class="hljs-number">135</span>.<span class="hljs-number">139</span>) ...<br><span class="hljs-attribute">Processing</span> triggers for ca-certificates (<span class="hljs-number">20210119</span>~<span class="hljs-number">18</span>.<span class="hljs-number">04</span>.<span class="hljs-number">1</span>) ...<br><span class="hljs-attribute">Updating</span> certificates in /etc/ssl/certs...<br><span class="hljs-attribute">0</span> added, <span class="hljs-number">0</span> removed; done.<br><span class="hljs-attribute">Running</span> hooks in /etc/ca-certificates/update.d...<br><br><span class="hljs-attribute">done</span>.<br><span class="hljs-attribute">done</span>.<br><span class="hljs-attribute">Processing</span> triggers for initramfs-tools (<span class="hljs-number">0</span>.<span class="hljs-number">130</span>ubuntu3.<span class="hljs-number">11</span>) ...<br><span class="hljs-attribute">update</span>-initramfs: Generating /boot/initrd.img-<span class="hljs-number">4</span>.<span class="hljs-number">15</span>.<span class="hljs-number">0</span>-<span class="hljs-number">132</span>-generic<br></code></pre></td></tr></table></figure>
+
+<p>然后……它就一直卡在这里了……我最久就让他卡了24小时，发现他真的就是卡住了，然后在网上一查，这果然是个大家遇到过的问题。</p>
+<p>之后，我用<code>sudo apt-get update</code>和<code>sudo apt-get upgrade</code>尝试更新的时候，他也会卡在这里。</p>
+<p>然后我查看了一下当时的系统采用的是132号的kernel，但是135号kernel也在已安装内核列表里（通过<code>sudo dpkg --get-selections | grep linux-image</code>命令查看）。</p>
+<p>反正之后折腾了，有的时候也会卡在135号内核的<code>update-initramfs</code>进程，就像这样：</p>
+<p><code>update-initramfs: Generating /boot/initrd.img-4.15.0-135-generic</code>。</p>
+<p>然后我今天重启的时候，突然发现进不去了系统了，提示信息是：</p>
+<p><code>Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block (0,0)</code></p>
+<p>好在找到一位大佬写的<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29936933/article/details/109216999">解决方案</a>，发现135号kernel无法进入系统，而132或者其他之前的kernel都可以，我就通过选择132号的kernel进入了系统，然后这个时候我再使用<code>sudo dpkg --configure -a</code>这条命令，发现居然不卡了，并且<code>apt-get install</code>的功能被恢复了！</p>
+<p>然后我通过<code>sudo update-grub</code>命令更新了内核启动项的配置文件，使用<code>shutdown -r now</code>命令重启，发现自动通过135号内核进入了系统！</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs delphi">Welcome <span class="hljs-keyword">to</span> Ubuntu <span class="hljs-number">18.04</span>.<span class="hljs-number">5</span> LTS (GNU/Linux <span class="hljs-number">4.15</span>.<span class="hljs-number">0</span>-<span class="hljs-number">135</span>-<span class="hljs-keyword">generic</span> x86_64)<br><br> * Documentation:  https:<span class="hljs-comment">//help.ubuntu.com</span><br> * Management:     https:<span class="hljs-comment">//landscape.canonical.com</span><br> * Support:        https:<span class="hljs-comment">//ubuntu.com/advantage</span><br><br>  System information <span class="hljs-keyword">as</span> <span class="hljs-keyword">of</span> Mon Feb <span class="hljs-number">22</span> <span class="hljs-number">10</span>:<span class="hljs-number">14</span>:<span class="hljs-number">35</span> UTC <span class="hljs-number">2021</span><br></code></pre></td></tr></table></figure>
+
+<p>而且之前的这一系列问题全部都正常了！</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>说实话，我也不太清楚发生了肾么事，反正挺神奇的。我挺期待有大神明白其中原理的可以解释一下，说不定其他遇到这种问题的同学也可以尝试着进旧内核里去更新新内核！这个方法我觉得还是比较安全的。</p>
+<p>以防以后还有这种问题，今天把这个学习笔记写在这里，一是等待高人指点，二是防止以后忘记怎么操作~！</p>
 
                 
               </div>
@@ -312,8 +334,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>nohup与循环</div>
-      <div>https://emmettpeng.github.io/2023/10/20/nohup与循环/</div>
+      <div>sudo dpkg --configure -a卡在内核更新update-initramfs的解决方案（可能版）</div>
+      <div>https://emmettpeng.github.io/2021/02/22/解决update-initramfs/</div>
     </div>
     <div class="license-meta">
       
@@ -325,7 +347,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>October 20, 2023</div>
+          <div>February 22, 2021</div>
         </div>
       
       
@@ -357,21 +379,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/26/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE/" title="给Galaxy注册增加强密码设置">
+                      <a href="/2021/12/14/Log4j2%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CNVD-2021-95914%EF%BC%89%E8%A1%A5%E4%B8%81%E5%8A%9E%E6%B3%95/" title="Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">给Galaxy注册增加强密码设置</span>
+                        <span class="hidden-mobile">Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
-                    
-                      <a href="/2021/12/14/Log4j2%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CNVD-2021-95914%EF%BC%89%E8%A1%A5%E4%B8%81%E5%8A%9E%E6%B3%95/" title="Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法">
-                        <span class="hidden-mobile">Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法</span>
-                        <span class="visible-mobile">Next</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
                     
                   </article>
                 </div>

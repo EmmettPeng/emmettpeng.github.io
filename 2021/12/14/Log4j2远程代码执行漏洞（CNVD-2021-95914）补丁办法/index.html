@@ -16,21 +16,21 @@
   <meta name="author" content="Emmett Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）收到网络中心老师发的邮件    2021年12月10日，国家信息安全漏洞共享平台（CNVD）收录了Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）。攻击者利用该漏洞，可在未授权的情况下远程执行代码，获得目标服务器权限。目前，漏洞利用细节已公开，Apache官方已发布补丁修复该漏洞。CNVD建议受">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://emmettpeng.github.io/2023/10/13/hello-world/index.html">
+<meta property="og:title" content="Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法">
+<meta property="og:url" content="https://emmettpeng.github.io/2021/12/14/Log4j2%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E%EF%BC%88CNVD-2021-95914%EF%BC%89%E8%A1%A5%E4%B8%81%E5%8A%9E%E6%B3%95/index.html">
 <meta property="og:site_name" content="mynote">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）收到网络中心老师发的邮件    2021年12月10日，国家信息安全漏洞共享平台（CNVD）收录了Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）。攻击者利用该漏洞，可在未授权的情况下远程执行代码，获得目标服务器权限。目前，漏洞利用细节已公开，Apache官方已发布补丁修复该漏洞。CNVD建议受">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-10-13T08:36:57.409Z">
-<meta property="article:modified_time" content="2023-10-13T08:36:57.409Z">
+<meta property="article:published_time" content="2021-12-14T06:44:09.000Z">
+<meta property="article:modified_time" content="2023-11-01T06:52:48.105Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Hello World - mynote</title>
+  <title>Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法 - mynote</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hello World"></span>
+            <span id="subtitle" data-typed-text="Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-13 16:36" pubdate>
-          October 13, 2023 pm
+        <time datetime="2021-12-14 14:44" pubdate>
+          December 14, 2021 pm
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          367 words
+          2.3k words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          4 mins
+          20 mins
         
       </span>
     
@@ -267,24 +267,48 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hello World</h1>
+            <h1 id="seo-header">Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+                <h1 id="Apache-Log4j2远程代码执行漏洞（CNVD-2021-95914）"><a href="#Apache-Log4j2远程代码执行漏洞（CNVD-2021-95914）" class="headerlink" title="Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）"></a>Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）</h1><p>收到网络中心老师发的邮件</p>
+<blockquote>
+<p>  2021年12月10日，国家信息安全漏洞共享平台（CNVD）收录了Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）。攻击者利用该漏洞，可在未授权的情况下远程执行代码，获得目标服务器权限。目前，漏洞利用细节已公开，Apache官方已发布补丁修复该漏洞。CNVD建议受影响用户立即更新至最新版本，同时采取防范性措施避免漏洞攻击威胁。<br><a target="_blank" rel="noopener" href="https://www.cert.org.cn/publish/main/8/2021/20211210110550958546708/20211210110550958546708_.html">https://www.cert.org.cn/publish/main/8/2021/20211210110550958546708/20211210110550958546708_.html</a>  </p>
+</blockquote>
+<p>服务器上有Apache服务，因此想办法修复补丁。在<a target="_blank" rel="noopener" href="https://github.com/apache/logging-log4j2/releases/tag/log4j-2.15.0-rc2">https://github.com/apache/logging-log4j2/releases/tag/log4j-2.15.0-rc2</a>找到了源码，拿下来不会编译，百度搜了下，找到了一个好用的答案。</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/444128036">好用的编译方法</a></p>
+<h1 id="主要步骤"><a href="#主要步骤" class="headerlink" title="主要步骤"></a>主要步骤</h1><h3 id="安装apache-maven-3-6-3"><a href="#安装apache-maven-3-6-3" class="headerlink" title="安装apache-maven-3.6.3"></a>安装apache-maven-3.6.3</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /opt<br>wget https://mirrors.ocf.berkeley.edu/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz --no-check-certificate<br>mkdir /opt/maven<br>tar -zxvf apache-maven-3.6.3-bin.tar.gz -C /opt/maven<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
+<h3 id="下载编译好的JDK"><a href="#下载编译好的JDK" class="headerlink" title="下载编译好的JDK"></a>下载编译好的JDK</h3><p>需要提前下载并解压JDK8, JDK9.0.4, JDK11.0.13</p>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><p>要用Java1.8的环境<br>用<code>vim /etc/profile</code> 编辑</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">export JAVAHOME=/opt/jdk1.8.0311<br>export MAVENHOME=/opt/maven/apache-maven-3.6.3<br>export CLASSPATH=.:$JAVAHOME/lib/dt.jar:$JAVAHOME/lib/tools.jar<br>export PATH=$PATH:$JAVAHOME/bin:$MAVEN_HOME/bin<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
+<p>然后<code>source /etc/profile</code></p>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">wget https://github.com/apache/logging-log4j2/archive/refs/tags/log4j-2.15.0-rc2.tar.gz<br>tar -xzvf log4j-2.15.0-rc2.tar.gz<br>cd /opt/logging-log4j2-log4j-2.15.0-rc2<br>mvn clean<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
+<h3 id="编译报错解决"><a href="#编译报错解决" class="headerlink" title="编译报错解决"></a>编译报错解决</h3><h4 id="1-报-log4j-api-java9-错误"><a href="#1-报-log4j-api-java9-错误" class="headerlink" title="1. 报 log4j-api-java9 错误"></a>1. 报 log4j-api-java9 错误</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd log4j-api-java9<br>cp ../toolchains-sample-linux.xml ../toolchains-sample-linux-9.xml<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p><code>../toolchains-sample-linux-9.xml</code>这个文件内容改成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;toolchain&gt;<br>    &lt;type&gt;jdk&lt;/type&gt;<br>    &lt;provides&gt;<br>      &lt;version&gt;9&lt;/version&gt;<br>      &lt;vendor&gt;sun&lt;/vendor&gt;<br>    &lt;/provides&gt;<br>    &lt;configuration&gt;<br>            &lt;jdkHome&gt;/opt/jdk-9.0.4&lt;/jdkHome&gt;<br>    &lt;/configuration&gt;<br>  &lt;/toolchain&gt;<br></code></pre></td></tr></table></figure>
+<p>然后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mvn clean install -t ../toolchains-sample-linux-9.xml<br></code></pre></td></tr></table></figure>
+
+<p>然后，把这个文件cp到 <code>~/.m2/toolchains.xml</code></p>
+<p>然后再退到<code>/opt/logging-log4j2-log4j-2.15.0-rc2</code>目录下，运行<br><code>mvn install -Dmaven.test.skip=true</code></p>
+<h4 id="2-报log4j-perf错误"><a href="#2-报log4j-perf错误" class="headerlink" title="2. 报log4j-perf错误"></a>2. 报log4j-perf错误</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd log4j-perf<br>cp ../toolchains-sample-linux.xml ../toolchains-sample-linux-11.xml<br></code></pre></td></tr></table></figure>
+
+<p><code>../toolchains-sample-linux-11.xml</code>这个文件内容改成：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;toolchain&gt;<br>    &lt;type&gt;jdk&lt;/type&gt;<br>    &lt;provides&gt;<br>      &lt;version&gt;11&lt;/version&gt;<br>      &lt;vendor&gt;sun&lt;/vendor&gt;<br>    &lt;/provides&gt;<br>    &lt;configuration&gt;<br>            &lt;jdkHome&gt;/opt/jdk-11.0.13&lt;/jdkHome&gt;<br>    &lt;/configuration&gt;<br>  &lt;/toolchain&gt;<br></code></pre></td></tr></table></figure>
+
+<p>然后，</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mvn clean install -t ../toolchains-sample-linux-11.xml<br></code></pre></td></tr></table></figure>
+<p>然后，把这个文件加到刚才改的 <code>~/.m2/toolchains.xml</code>后面</p>
+<p>然后再退到<code>/opt/logging-log4j2-log4j-2.15.0-rc2</code>目录下，运行<br><code>mvn install -Dmaven.test.skip=true</code></p>
+<p>整个编译应该就结束了。</p>
+<h1 id="原文参考"><a href="#原文参考" class="headerlink" title="原文参考"></a>原文参考</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/444128036">https://zhuanlan.zhihu.com/p/444128036</a></p>
+</blockquote>
 
                 
               </div>
@@ -292,6 +316,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux-Shell/" class="category-chain-item">Linux/Shell</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
 </div>
@@ -302,8 +347,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hello World</div>
-      <div>https://emmettpeng.github.io/2023/10/13/hello-world/</div>
+      <div>Apache Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法</div>
+      <div>https://emmettpeng.github.io/2021/12/14/Log4j2远程代码执行漏洞（CNVD-2021-95914）补丁办法/</div>
     </div>
     <div class="license-meta">
       
@@ -315,7 +360,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>October 13, 2023</div>
+          <div>December 14, 2021</div>
         </div>
       
       
@@ -356,6 +401,12 @@
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2021/02/22/%E8%A7%A3%E5%86%B3update-initramfs/" title="sudo dpkg --configure -a卡在内核更新update-initramfs的解决方案（可能版）">
+                        <span class="hidden-mobile">sudo dpkg --configure -a卡在内核更新update-initramfs的解决方案（可能版）</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
