@@ -18,19 +18,19 @@
   
     <meta name="description" content="Pandas入门笔记从今天开始更新Pandas基础语法笔记，之前一直都是零零散散的用的，打算每天花一段时间系统记录一下pandas的基本语法。主要参考了bilibili的up主@蚂蚁学python的视频Python Pandas 数据分析，编程练习100例和W3Cschool的Pandas中文教程。 P1 From list to series12345678# From list to seri">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pandas: Pandas入门笔记(2023.11.7 &#x2F; Updated)">
+<meta property="og:title" content="Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作">
 <meta property="og:url" content="https://emmettpeng.github.io/2023/11/01/pandas-base/index.html">
 <meta property="og:site_name" content="mynote">
 <meta property="og:description" content="Pandas入门笔记从今天开始更新Pandas基础语法笔记，之前一直都是零零散散的用的，打算每天花一段时间系统记录一下pandas的基本语法。主要参考了bilibili的up主@蚂蚁学python的视频Python Pandas 数据分析，编程练习100例和W3Cschool的Pandas中文教程。 P1 From list to series12345678# From list to seri">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-11-01T14:19:36.000Z">
-<meta property="article:modified_time" content="2023-11-14T12:14:04.579Z">
+<meta property="article:modified_time" content="2023-11-15T14:04:44.960Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Pandas: Pandas入门笔记(2023.11.7 / Updated) - mynote</title>
+  <title>Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作 - mynote</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Pandas: Pandas入门笔记(2023.11.7 / Updated)"></span>
+            <span id="subtitle" data-typed-text="Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作"></span>
           
         </div>
 
@@ -267,7 +267,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Pandas: Pandas入门笔记(2023.11.7 / Updated)</h1>
+            <h1 id="seo-header">Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作</h1>
             
             
               <div class="markdown-body">
@@ -355,6 +355,8 @@
 <h2 id="P20-Dataframe读取csv文件"><a href="#P20-Dataframe读取csv文件" class="headerlink" title="P20 Dataframe读取csv文件"></a>P20 Dataframe读取csv文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br>df = pd.read_csv(<span class="hljs-string">&quot;/Users/emmett/Desktop/P19_output.csv&quot;</span>, index_col=<span class="hljs-number">0</span>)<br><br><span class="hljs-built_in">print</span>(df.info())<br></code></pre></td></tr></table></figure>
 <p>输出：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(df.info())<br>&lt;<span class="hljs-keyword">class</span> <span class="hljs-string">&#x27;pandas.core.frame.DataFrame&#x27;</span>&gt;<br>Index: <span class="hljs-number">100</span> entries, <span class="hljs-number">2023</span>-<span class="hljs-number">11</span>-07 to <span class="hljs-number">2024</span>-02-<span class="hljs-number">14</span><br>Data columns (total <span class="hljs-number">3</span> columns):<br> <span class="hljs-comment">#   Column    Non-Null Count  Dtype  </span><br>---  ------    --------------  -----  <br> <span class="hljs-number">0</span>   norm      <span class="hljs-number">100</span> non-null    float64<br> <span class="hljs-number">1</span>   uniform   <span class="hljs-number">100</span> non-null    float64<br> <span class="hljs-number">2</span>   binomial  <span class="hljs-number">100</span> non-null    int64  <br>dtypes: float64(<span class="hljs-number">2</span>), int64(<span class="hljs-number">1</span>)<br>memory usage: <span class="hljs-number">3.1</span>+ KB<br><span class="hljs-literal">None</span><br></code></pre></td></tr></table></figure>
+
+
                 
               </div>
             
@@ -399,7 +401,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Pandas: Pandas入门笔记(2023.11.7 / Updated)</div>
+      <div>Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作</div>
       <div>https://emmettpeng.github.io/2023/11/01/pandas-base/</div>
     </div>
     <div class="license-meta">

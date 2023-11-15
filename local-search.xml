@@ -25,7 +25,7 @@
   
   
   <entry>
-    <title>Pandas: Pandas入门笔记(2023.11.7 / Updated)</title>
+    <title>Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作</title>
     <link href="/2023/11/01/pandas-base/"/>
     <url>/2023/11/01/pandas-base/</url>
     
@@ -55,9 +55,9 @@
     
     <categories>
       
-      <category>Python</category>
-      
       <category>Bioinformatics tool</category>
+      
+      <category>Python</category>
       
     </categories>
     
