@@ -16,23 +16,21 @@
   <meta name="author" content="Emmett Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="生物信息平台Galaxy：增强设置密码的强度要求我们课题组的一些生物信息工具一般都利用Galaxy Platform来放到网页上形成可交互界面。近期我们有一个需求，就是让新注册的用户必须使用强密码，比如&gt;8位字符，必须同时包含大写、小写字母、数字。 咨询了一下galaxy platform的团队人员，给出以下办法：  找到&#x2F;path&#x2F;to&#x2F;galaxy&#x2F;lib&#x2F;galaxy&#x2F;security">
+    <meta name="description" content="在 WordPress 中，文件上传大小限制通常由几个因素决定，包括 PHP 配置和可能的服务器设置。要增加 WordPress 的文件上传大小限制，你需要更改 PHP 配置文件。这通常涉及以下步骤： 修改 PHP 配置文件你需要找到并编辑 PHP 配置文件（php.ini）。这个文件的位置取决于你的服务器配置和使用的 PHP 版本。常见的路径可能是 &#x2F;etc&#x2F;php&amp;#x2F">
 <meta property="og:type" content="article">
-<meta property="og:title" content="给Galaxy注册增加强密码设置">
-<meta property="og:url" content="https://emmettpeng.github.io/2023/10/26/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE/index.html">
+<meta property="og:title" content="直接通过php解决wordpress上传文件大小限制">
+<meta property="og:url" content="https://emmettpeng.github.io/2023/11/21/wordpress%E4%B8%8A%E4%BC%A0%E9%99%90%E5%88%B6/index.html">
 <meta property="og:site_name" content="mynote">
-<meta property="og:description" content="生物信息平台Galaxy：增强设置密码的强度要求我们课题组的一些生物信息工具一般都利用Galaxy Platform来放到网页上形成可交互界面。近期我们有一个需求，就是让新注册的用户必须使用强密码，比如&gt;8位字符，必须同时包含大写、小写字母、数字。 咨询了一下galaxy platform的团队人员，给出以下办法：  找到&#x2F;path&#x2F;to&#x2F;galaxy&#x2F;lib&#x2F;galaxy&#x2F;security">
+<meta property="og:description" content="在 WordPress 中，文件上传大小限制通常由几个因素决定，包括 PHP 配置和可能的服务器设置。要增加 WordPress 的文件上传大小限制，你需要更改 PHP 配置文件。这通常涉及以下步骤： 修改 PHP 配置文件你需要找到并编辑 PHP 配置文件（php.ini）。这个文件的位置取决于你的服务器配置和使用的 PHP 版本。常见的路径可能是 &#x2F;etc&#x2F;php&amp;#x2F">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://emmettpeng.github.io/img/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE1.jpg">
-<meta property="article:published_time" content="2023-10-26T06:41:23.000Z">
-<meta property="article:modified_time" content="2023-10-26T07:50:22.445Z">
+<meta property="article:published_time" content="2023-11-21T14:11:03.000Z">
+<meta property="article:modified_time" content="2023-11-21T14:17:06.980Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://emmettpeng.github.io/img/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE1.jpg">
   
   
   
-  <title>给Galaxy注册增加强密码设置 - mynote</title>
+  <title>直接通过php解决wordpress上传文件大小限制 - mynote</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="给Galaxy注册增加强密码设置"></span>
+            <span id="subtitle" data-typed-text="直接通过php解决wordpress上传文件大小限制"></span>
           
         </div>
 
@@ -209,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-26 14:41" pubdate>
-          October 26, 2023 pm
+        <time datetime="2023-11-21 22:11" pubdate>
+          November 21, 2023 pm
         </time>
       </span>
     
@@ -221,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k words
+          740 words
         
       </span>
     
@@ -232,7 +230,7 @@
         
         
         
-          16 mins
+          7 mins
         
       </span>
     
@@ -269,34 +267,24 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">给Galaxy注册增加强密码设置</h1>
+            <h1 id="seo-header">直接通过php解决wordpress上传文件大小限制</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="生物信息平台Galaxy：增强设置密码的强度要求"><a href="#生物信息平台Galaxy：增强设置密码的强度要求" class="headerlink" title="生物信息平台Galaxy：增强设置密码的强度要求"></a>生物信息平台Galaxy：增强设置密码的强度要求</h1><p>我们课题组的一些生物信息工具一般都利用<a target="_blank" rel="noopener" href="https://galaxyproject.org/">Galaxy Platform</a>来放到网页上形成可交互界面。近期我们有一个需求，就是让新注册的用户必须使用强密码，比如&gt;8位字符，必须同时包含大写、小写字母、数字。</p>
-<p>咨询了一下galaxy platform的团队人员，给出以下办法：</p>
-<ol>
-<li>找到<code>/path/to/galaxy/lib/galaxy/security/validate_user_input.py</code>文件，并找到这一块：</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Password validity parameters</span><br>PASSWORD_MIN_LEN = <span class="hljs-number">6</span><br><br><span class="hljs-comment"># Password rule: Must contain Uppercase letter, lowercase letter and number</span><br>VALID_PASSWORD_RE = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_email_str</span>(<span class="hljs-params">email</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;Validates a string containing an email address.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> email:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No email address was provided.&quot;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span>(VALID_EMAIL_RE.<span class="hljs-keyword">match</span>(email)):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;The format of the email address is not correct.&quot;</span><br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(email) &gt; EMAIL_MAX_LEN:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Email address cannot be more than %d characters in length.&quot;</span> % EMAIL_MAX_LEN<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_password_str</span>(<span class="hljs-params">password</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> password <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(password) &lt; PASSWORD_MIN_LEN:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Use a password of at least %d characters.&quot;</span> % PASSWORD_MIN_LEN<br>    <span class="hljs-comment"># Password validation</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> VALID_PASSWORD_RE.<span class="hljs-keyword">match</span>(password):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Password must contain at least one uppercase letter, one lowercase letter and one number.&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+                <p>在 WordPress 中，文件上传大小限制通常由几个因素决定，包括 PHP 配置和可能的服务器设置。要增加 WordPress 的文件上传大小限制，你需要更改 PHP 配置文件。这通常涉及以下步骤：</p>
+<h2 id="修改-PHP-配置文件"><a href="#修改-PHP-配置文件" class="headerlink" title="修改 PHP 配置文件"></a>修改 PHP 配置文件</h2><p>你需要找到并编辑 PHP 配置文件（php.ini）。这个文件的位置取决于你的服务器配置和使用的 PHP 版本。常见的路径可能是 &#x2F;etc&#x2F;php&#x2F;7.4&#x2F;apache2&#x2F;php.ini，这里的 7.4 应替换为你的 PHP 版本号。</p>
+<p>打开 php.ini 文件进行编辑，你可以使用 nano 编辑器或任何你喜欢的文本编辑器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo vim /etc/php/8.1/apache2/php.ini<br></code></pre></td></tr></table></figure>
+<p>在文件中找到以下两行，并修改它们以反映你希望的上传大小限制：</p>
+<p>upload_max_filesize：这个值控制单个文件的最大上传大小。<br>post_max_size：这个值控制整个请求的最大大小，包括所有文件。<br>例如，要将文件上传大小限制设置为 100MB，可以设置：</p>
+<p>makefile<br>Copy code<br>upload_max_filesize &#x3D; 100M<br>post_max_size &#x3D; 100M<br>保存并关闭文件。</p>
+<h2 id="重启-Web-服务器"><a href="#重启-Web-服务器" class="headerlink" title="重启 Web 服务器"></a>重启 Web 服务器</h2><p>更改配置文件后，你需要重启 Web 服务器使更改生效。这取决于你使用的服务器类型（Apache 或 Nginx）：</p>
+<p>对于 Apache：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl restart apache2<br></code></pre></td></tr></table></figure>
 
-<ol start="2">
-<li><p>修改<code>PASSWORD_MIN_LEN = 8</code>使得最小密码长度设置为8；</p>
-</li>
-<li><p>添加正则来要求字符种类：</p>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Password rule: Must contain Uppercase letter, lowercase letter and number</span><br>VALID_PASSWORD_RE = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)&#x27;</span>)<br></code></pre></td></tr></table></figure>
-<ol start="4">
-<li>然后在<code>def validate_password_str(password):</code>函数里面增加一个<code>if</code>条件来识别密码是否满足正则：</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">validate_password_str</span>(<span class="hljs-params">password</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> password <span class="hljs-keyword">or</span> <span class="hljs-built_in">len</span>(password) &lt; PASSWORD_MIN_LEN:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Use a password of at least %d characters.&quot;</span> % PASSWORD_MIN_LEN<br>    <span class="hljs-comment"># Password validation</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> VALID_PASSWORD_RE.<span class="hljs-keyword">match</span>(password):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Password must contain at least one uppercase letter, one lowercase letter and one number.&quot;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
-<ol start="5">
-<li>现在如果在注册时，使用不符合要求的简单密码，就会出现以下警告：</li>
-</ol>
-<p><img src="/img/%E7%BB%99Galaxy%E6%B3%A8%E5%86%8C%E5%A2%9E%E5%8A%A0%E5%BC%BA%E5%AF%86%E7%A0%81%E8%AE%BE%E7%BD%AE1.jpg" srcset="/img/loading.gif" lazyload alt="错误提示"></p>
-<h2 id="其他方案"><a href="#其他方案" class="headerlink" title="其他方案"></a>其他方案</h2><p>Galaxy团队人员还是推荐，如果真的要使用强密码或者mfa之类的设置，推荐使用external authentication的工具，如Keycloak，但是现在水平不够，还不会搞这些。鉴于上述的这种修改方式，在galaxy更新之后，很有可能会被覆盖掉，后面可能还需要再改，记录一下，以后查看。</p>
+<h2 id="WordPress-设置"><a href="#WordPress-设置" class="headerlink" title="WordPress 设置"></a>WordPress 设置</h2><p>在某些情况下，WordPress 主题或插件也可能有自己的上传大小限制。检查你的 WordPress 设置和插件文档，确保没有进一步的限制。</p>
+<p>Wordpress里面那个自带的插件真抽象，干这个活要69刀，怎么不去抢了……还好我有GPT。</p>
 
                 
               </div>
@@ -315,17 +303,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Python/" class="category-chain-item">Python</a>
-  
-  
-
-      </span>
-    
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Bioinformatics-tool/" class="category-chain-item">Bioinformatics tool</a>
+  <a href="/categories/%E5%BB%BA%E7%AB%99%E7%BB%8F%E9%AA%8C/" class="category-chain-item">建站经验</a>
   
   
 
@@ -345,8 +323,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>给Galaxy注册增加强密码设置</div>
-      <div>https://emmettpeng.github.io/2023/10/26/给Galaxy注册增加强密码设置/</div>
+      <div>直接通过php解决wordpress上传文件大小限制</div>
+      <div>https://emmettpeng.github.io/2023/11/21/wordpress上传限制/</div>
     </div>
     <div class="license-meta">
       
@@ -358,7 +336,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>October 26, 2023</div>
+          <div>November 21, 2023</div>
         </div>
       
       
@@ -390,18 +368,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/11/01/pandas-base/" title="Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Pandas: Pandas入门笔记(1)————Pandas的数据格式和基本操作</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/20/nohup%E4%B8%8E%E5%BE%AA%E7%8E%AF/" title="nohup与循环">
-                        <span class="hidden-mobile">nohup与循环</span>
+                      <a href="/2023/11/15/pandas-base-2/" title="Pandas: Pandas入门笔记(2)————通过股票数据实践查看、筛选、设置索引、删除列、重命名等操作">
+                        <span class="hidden-mobile">Pandas: Pandas入门笔记(2)————通过股票数据实践查看、筛选、设置索引、删除列、重命名等操作</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
