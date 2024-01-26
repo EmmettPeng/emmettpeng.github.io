@@ -16,21 +16,21 @@
   <meta name="author" content="Emmett Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Pandas入门笔记(3)从今天开始更新Pandas基础语法笔记，之前一直都是零零散散的用的，打算每天花一段时间系统记录一下pandas的基本语法。主要参考了bilibili的up主@蚂蚁学python的视频Python Pandas 数据分析，编程练习100例和W3Cschool的Pandas中文教程。 前两个部分学习的基本上都是一些pandas的基本操作，从这一节开始操作会开始付杂一些，也需要">
+    <meta name="description" content="软件简介主要用于Illumina双端或单端测序数据的质控，基本原理是Sliding window。二代测序的扩增子测序和宏基因组测序用该方法都是可行的，我主要用来做宏基因组测序数据的质控。 参数列表ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.SLIDINGWINDOW: Perform">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pandas: Pandas入门笔记(3)————电信客户流失数据集的分析">
-<meta property="og:url" content="https://emmettpeng.github.io/2023/11/25/pandas-base-3/index.html">
+<meta property="og:title" content="Trimmomatic: Reads Quality Control">
+<meta property="og:url" content="https://emmettpeng.github.io/2024/01/26/trimmomatic/index.html">
 <meta property="og:site_name" content="Emmett&#39;s Note">
-<meta property="og:description" content="Pandas入门笔记(3)从今天开始更新Pandas基础语法笔记，之前一直都是零零散散的用的，打算每天花一段时间系统记录一下pandas的基本语法。主要参考了bilibili的up主@蚂蚁学python的视频Python Pandas 数据分析，编程练习100例和W3Cschool的Pandas中文教程。 前两个部分学习的基本上都是一些pandas的基本操作，从这一节开始操作会开始付杂一些，也需要">
+<meta property="og:description" content="软件简介主要用于Illumina双端或单端测序数据的质控，基本原理是Sliding window。二代测序的扩增子测序和宏基因组测序用该方法都是可行的，我主要用来做宏基因组测序数据的质控。 参数列表ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.SLIDINGWINDOW: Perform">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-11-25T07:52:09.000Z">
-<meta property="article:modified_time" content="2023-11-25T14:33:47.981Z">
+<meta property="article:published_time" content="2024-01-26T07:51:11.000Z">
+<meta property="article:modified_time" content="2024-01-26T08:01:01.213Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Pandas: Pandas入门笔记(3)————电信客户流失数据集的分析 - Emmett&#39;s Note</title>
+  <title>Trimmomatic: Reads Quality Control - Emmett&#39;s Note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Pandas: Pandas入门笔记(3)————电信客户流失数据集的分析"></span>
+            <span id="subtitle" data-typed-text="Trimmomatic: Reads Quality Control"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-11-25 15:52" pubdate>
-          November 25, 2023 pm
+        <time datetime="2024-01-26 15:51" pubdate>
+          January 26, 2024 pm
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          319 words
+          981 words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          3 mins
+          9 mins
         
       </span>
     
@@ -267,15 +267,16 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Pandas: Pandas入门笔记(3)————电信客户流失数据集的分析</h1>
+            <h1 id="seo-header">Trimmomatic: Reads Quality Control</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Pandas入门笔记-3"><a href="#Pandas入门笔记-3" class="headerlink" title="Pandas入门笔记(3)"></a>Pandas入门笔记(3)</h1><p>从今天开始更新Pandas基础语法笔记，之前一直都是零零散散的用的，打算每天花一段时间系统记录一下pandas的基本语法。<br>主要参考了bilibili的up主<a target="_blank" rel="noopener" href="https://space.bilibili.com/61036655">@蚂蚁学python</a>的视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Nq4y1Z7Q8?p=4&vd_source=708323e5553f1c0b8879d3d65a98b898">Python Pandas 数据分析，编程练习100例</a>和<a target="_blank" rel="noopener" href="https://www.w3cschool.cn/hyspo/">W3Cschool的Pandas中文教程</a>。</p>
-<p>前两个部分学习的基本上都是一些pandas的基本操作，从这一节开始操作会开始付杂一些，也需要更多的时间去理解记忆。从笔记的角度，不打算继续使用之前那种的段落式，跟着视频的内容用jupyter notebook进行实践，并且把实操、思路和结果都放在这里吧。</p>
-<p>这一部分数据使用的是电信客户流失数据（Churn），这里提供一下这个文件的下载地址。</p>
-<iframe src="https://nbviewer.org/github/EmmettPeng/Hexo-ipynb/blob/main/pandas-base-3.ipynb" width="100%" height="600"></iframe>
+                <h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>主要用于Illumina双端或单端测序数据的质控，基本原理是Sliding window。二代测序的扩增子测序和宏基因组测序用该方法都是可行的，我主要用来做宏基因组测序数据的质控。</p>
+<h2 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h2><p>ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.<br>SLIDINGWINDOW: Perform a sliding window trimming, cutting once the average quality within the window falls below a threshold.<br>LEADING: Cut bases off the start of a read, if below a threshold quality<br>TRAILING: Cut bases off the end of a read, if below a threshold quality<br>CROP: Cut the read to a specified length<br>HEADCROP: Cut the specified number of bases from the start of the read<br>MINLEN: Drop the read if it is below a specified length<br>TOPHRED33: Convert quality scores to Phred-33<br>TOPHRED64: Convert quality scores to Phred-64</p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">java -jar /path/to/trimmomatic-0.39.jar PE \<br>    -threads 32 -phred33 \<br>    /path/to/rawread.R1.fq \<br>    /path/to/rawread.R2.fq \<br>    /path/to/rawread.trimmed.R1.fq \<br>    /path/to/rawread.unpaired.R1.fq \<br>    /path/to/rawread.trimmed.R2.fq \<br>    /path/to/rawread.unpaired.R1.fq \<br>    LEADING:3 TRAILING:3 MINLEN:50 SLIDINGWINDOW:4:20<br></code></pre></td></tr></table></figure>
+
+<h2 id="相关参考链接"><a href="#相关参考链接" class="headerlink" title="相关参考链接"></a>相关参考链接</h2><p><a target="_blank" rel="noopener" href="https://github.com/usadellab/Trimmomatic">https://github.com/usadellab/Trimmomatic</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a8935adebaae">https://www.jianshu.com/p/a8935adebaae</a></p>
 
                 
               </div>
@@ -294,15 +295,8 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  <a href="/categories/Bioinformatics-tool/" class="category-chain-item">Bioinformatics tool</a>
   
-  
-    <span>></span>
-    
-  <a href="/categories/Python/Pandas/" class="category-chain-item">Pandas</a>
-  
-  
-
   
 
       </span>
@@ -321,8 +315,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Pandas: Pandas入门笔记(3)————电信客户流失数据集的分析</div>
-      <div>https://emmettpeng.github.io/2023/11/25/pandas-base-3/</div>
+      <div>Trimmomatic: Reads Quality Control</div>
+      <div>https://emmettpeng.github.io/2024/01/26/trimmomatic/</div>
     </div>
     <div class="license-meta">
       
@@ -334,7 +328,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>November 25, 2023</div>
+          <div>January 26, 2024</div>
         </div>
       
       
@@ -366,18 +360,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/26/trimmomatic/" title="Trimmomatic: Reads Quality Control">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Trimmomatic: Reads Quality Control</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/11/21/wordpress%E4%B8%8A%E4%BC%A0%E9%99%90%E5%88%B6/" title="直接通过php解决wordpress上传文件大小限制">
-                        <span class="hidden-mobile">直接通过php解决wordpress上传文件大小限制</span>
+                      <a href="/2023/11/25/pandas-base-3/" title="Pandas: Pandas入门笔记(3)————电信客户流失数据集的分析">
+                        <span class="hidden-mobile">Pandas: Pandas入门笔记(3)————电信客户流失数据集的分析</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
