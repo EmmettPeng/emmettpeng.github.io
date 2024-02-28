@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>Megahit: 高效迅速的metagenome assembler</title>
+    <link href="/2024/02/28/megahit/"/>
+    <url>/2024/02/28/megahit/</url>
+    
+    <content type="html"><![CDATA[<h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>Megahit是基因组组装方面最常用且高效的软件之一。它主要的原理是基于k-mer迭代的德布莱英图方法。关于对德布莱英图的初步解读我写在另一篇blog里面。</p><p>在我的宏基因组数据处理中，megahit是和metaSPAdes、IDBA-UD等软件一起常被用到的，对我来说，它的主要优势是<strong>速度快、且占用运存小</strong>。我在运行一下测试数据，需要查看大概的结果的时候，会经常用到megahit。</p><h2 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h2><p>-1, -2, -o: 最常用的双端测序<br>-r, -o: 单端测序数据</p><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">megahit -1 /path/to/R1.fq -2 /path/to/R2.fq -o /path/to/out_dir<br></code></pre></td></tr></table></figure><h2 id="相关参考链接"><a href="#相关参考链接" class="headerlink" title="相关参考链接"></a>相关参考链接</h2><ol><li><a href="https://academic.oup.com/bioinformatics/article/31/10/1674/177884?login=false">https://academic.oup.com/bioinformatics/article/31/10/1674/177884?login=false</a></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Bioinformatics tool</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接</title>
+    <link href="/2024/02/26/de-bruijn-graph/"/>
+    <url>/2024/02/26/de-bruijn-graph/</url>
+    
+    <content type="html"><![CDATA[<p>最近在做一批宏基因组数据的拼接工作，这里的拼接主要指从Read到Contig这个水平。然后因为是第一次做，有很多没懂的地方，在学习和实践的过程中，总结了一下。写成几篇博客记录一下，以后又不清楚了可以回来看一下。这篇博客主要记录一下宏基因组拼接的算法之一——基于德布莱英图（<em>De Bruijn</em> graph）的方法。</p><h2 id="一、为什么使用德布莱英图？"><a href="#一、为什么使用德布莱英图？" class="headerlink" title="一、为什么使用德布莱英图？"></a>一、为什么使用德布莱英图？</h2><p>对于短序列read的拼接有两种基本算法，一种是基于Overlap Graph的算法，另一种是基于德布莱英图的算法。大多数为了桑格测序（Sanger sequencing）得到的测序数据拼接的算法都是基于Overlap Graph的，最典型的就是Overlap-layout-consensus方法，简称为OLC方法，这个方法通过两两之间有overlap区域的reads来构图，每个Read作为图中的点，而拥有足够的overlap则是建立图中的连接的基础。</p><p><img src="https://img-blog.csdnimg.cn/20201025161548591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><p>这种方式在处理序列数很有限，而且序列间overlap区域很明显的时候能取得最好的效果。一些对于二代测序数据设计的assembler使用了OLC方法，但是这种传统的方法计算量实在过大，就算是非常简单的物种的从头组装也需要上百万甚至上千万条序列，所以仍然使用OLC方法显然不太实际。而且二代测序数据的读长片段，现在来说250bp和300bp的读长都是属于新兴事物，想要在茫茫多的短序列中找到可供使用的overlap区域也是OLC方法面临的瓶颈之一。</p><p>由于OLC方法跟不上更短的Read长度和更大的Read条数，更多的为二代测序数据拼接的assembler都选择了基于德布莱英图方法的，本文中将其简称为DBG，指<em>de Bruijn</em> graph。DBG方法通过将序列打断成更小的长度为<em>k</em>的小片段（称为<strong>k-mer</strong>）来降低计算的规模。对于一条长度为<em>N</em>的序列从头到尾（比如从5’-端到3‘-端）依次取k-mer一共可以取到*<em>N-k+1</em>个k-mer，每两个相邻的k-mer之间都有长度为k-1的overlap区域。</p><p><img src="https://img-blog.csdnimg.cn/20201025161558590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><p>通过将序列打断为k-mers，德布莱英图方法降低了大量短序列数据集中的数据冗余性，就好比上图中的这条序列在被切为3-mers后，GAT这个k-mer是重复出现的，并在德布莱英图中被反复利用，也就达到了降低了整体数据量和计算量的目的。对于某一特定的组装来说，<strong>最大的有效k-mer size取决于读长和error rate，同时如何选择k的取值也是决定了组装质量的重要条件（我现在也正在调查研究这一点）。</strong>实际上，在拼接前是有方法可以先看看合适的k值的，比如<strong>kmergenie</strong>这款软件就可以给出一个预测的k-mer值。</p><p>德布莱英图的另一个很优秀的特性就是在基因组中的一些重复片段会在德布莱英图中被打断，避免了一些错误的组装结果（当然不能很好地解决）。</p><p><em>第一节的内容和图片整理来自：<a href="https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf">https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf</a></em></p><h2 id="二、从德布莱英图到拼接结果"><a href="#二、从德布莱英图到拼接结果" class="headerlink" title="二、从德布莱英图到拼接结果"></a>二、从德布莱英图到拼接结果</h2><p>对于某一组测序数据来说，通过相应的算法获得了德布莱英图，怎么将图转化为序列呢？首先我们必须知道，德布莱英图是具有<strong>欧拉图（Eulerian Graph）</strong>的性质的，也就是说我们需要寻找的通路（path）是一条遍历每个边至少一次的。当然我们也希望它是遍历每个点至少一次，但是<strong>哈密顿图（Hamiltonian Graph）</strong>作为世界难解的NP-Complete问题，还很难被归化成一个具有概括性的模型。</p><p>根据上面的欧拉通路性质，对于下面的这组德布莱英图，我们认为它的拼接结果应该是GATTACATTACAA，或者说图中的ACA-CAT-ATT这个分支环路至少要被遍历一次。</p><p><img src="https://img-blog.csdnimg.cn/20201025161609372.png#pic_center" alt="在这里插入图片描述"></p><p>事实上，当序列被打断为短k-mer后，序列的模糊性就变高了，就比如上图中的分支环路到底遍历几次，或者像下图这样的：</p><p><img src="https://img-blog.csdnimg.cn/20201025161626796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><p>好像有很多条通路都可以满足条件。所以在实际情况中，assembler返回的是一组子通路（substring）的集合，通过这些子通路就可以组装出多条通路。比如针对上面这张图，返回的子通路集合是这样的{ACTGA, GACC, GAGTG, GAATG}，其中第一个元素代表这个图的“入口”，第二个元素好代表这个图的“出口”，第三个元素代表的是上面蓝色的分支环路，第四个元素代表的是下面绿色的分支环路，通过按顺序选择分支就可以得到一条完整的路径。</p><p>通过拼接得到的contig是不能有分支节点的，也就是说我们想要得到的就是简单的单一路径，或者说单一序列。所以如果我们最终得到的contig是下图这样的，我们就会把它们按分支节点拆开，作为最终的contig结果。</p><p><img src="https://img-blog.csdnimg.cn/20201025161638631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p><p>这一部分其实还有大佬讲的更详细一点，参考：<a href="https://zhuanlan.zhihu.com/p/54466660%E3%80%82">https://zhuanlan.zhihu.com/p/54466660。</a></p><h2 id="三、几个值得关注的问题（之后边学习边写）"><a href="#三、几个值得关注的问题（之后边学习边写）" class="headerlink" title="三、几个值得关注的问题（之后边学习边写）"></a>三、几个值得关注的问题（之后边学习边写）</h2><p>以上就是我现在比较关心的从read到contig的这样一个拼接过程的简单流程，但是在<strong>实用阶段</strong>中还有如下几个问题：</p><ol><li>以上介绍的都是单k-mer实现序列拼接，但是现在的Assemblers普遍输入k-mer list，也就是说它会有多个k值进行迭代式的拼接。为什么要用multi-k-mer的方法？k值以及k-max、k-min该如何选择？</li><li>Assembler的参数该如何选择？或者说该如何针对不同的数据情况选择？</li><li>德布莱英图只是一个基础，不同的Assembler，比如Megahit、MetaSPAdes、IDBA-UD等都在DBG的方法上进行了自己的改良优化，它们的详细原理是什么（关系到它们的适用场景和参数选择）？</li><li>还有很多使用中遇到的问题……</li></ol><p>在学习的过程中写了这些笔记，整理出来发成一个文档集。之后应该还会写以上几个问题的学习笔记和几款Assembler的使用说明（弄清楚了咋整的之后……），stay tuned :)</p><h3 id="参考文献和学习资料："><a href="#参考文献和学习资料：" class="headerlink" title="参考文献和学习资料："></a>参考文献和学习资料：</h3><ol><li><p><a href="https://zhuanlan.zhihu.com/p/54466660">https://zhuanlan.zhihu.com/p/54466660</a></p></li><li><p><a href="http://www.cs.bilkent.edu.tr/~calkan/teaching/cs481/pdfslides/20-cs481-intro_to_assembly.pdf">http://www.cs.bilkent.edu.tr/~calkan/teaching/cs481/pdfslides/20-cs481-intro_to_assembly.pdf</a></p></li><li><p><a href="http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-1.pdf">http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-1.pdf</a></p></li><li><p><a href="http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-2.pdf">http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-2.pdf</a></p></li><li><p>Pasolli E, Asnicar F, Manara S, et al. Extensive Unexplored Human Microbiome Diversity Revealed by Over 150,000 Genomes from Metagenomes Spanning Age, Geography, and Lifestyle. Cell. 2019;176(3):649-662.e20. doi:10.1016&#x2F;j.cell.2019.01.001</p></li><li><p>Forouzan E, Shariati P, Mousavi Maleki MS, Karkhane AA, Yakhchali B. Practical evaluation of 11 de novo assemblers in metagenome assembly. J Microbiol Methods. 2018 Aug;151:99-105. doi: 10.1016&#x2F;j.mimet.2018.06.007. Epub 2018 Jun 25. PMID: 29953874.</p></li><li><p><a href="https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf">https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf</a></p></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Bioinformatics tool</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Clumpify.sh (from BBMap): Remove PCR Duplicates</title>
     <link href="/2024/01/30/clumpify/"/>
     <url>/2024/01/30/clumpify/</url>

@@ -16,21 +16,27 @@
   <meta name="author" content="Emmett Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="软件简介clumpify.sh实际上是BBMap工具中的一个脚本，本来的作用是去除重复序列。在宏基因组数据处理中，经常用于二代数据（经PCR建库）后的去除PCR重复。 去除PCR重复这本事是一件挺具有争议性的话题。首先，决定你到底需不需要做这一步的一个最重要的因素是要去调查清楚你的测序建库方法到底是不是PCR-free的，如果不是，才有做这一步的意义。另外，有相关的分析表明，PCR duplica">
+    <meta name="description" content="最近在做一批宏基因组数据的拼接工作，这里的拼接主要指从Read到Contig这个水平。然后因为是第一次做，有很多没懂的地方，在学习和实践的过程中，总结了一下。写成几篇博客记录一下，以后又不清楚了可以回来看一下。这篇博客主要记录一下宏基因组拼接的算法之一——基于德布莱英图（De Bruijn graph）的方法。 一、为什么使用德布莱英图？对于短序列read的拼接有两种基本算法，一种是基于Overl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Clumpify.sh (from BBMap): Remove PCR Duplicates">
-<meta property="og:url" content="https://emmettpeng.github.io/2024/01/30/clumpify/index.html">
+<meta property="og:title" content="基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接">
+<meta property="og:url" content="https://emmettpeng.github.io/2024/02/26/de-bruijn-graph/index.html">
 <meta property="og:site_name" content="Emmett&#39;s Note">
-<meta property="og:description" content="软件简介clumpify.sh实际上是BBMap工具中的一个脚本，本来的作用是去除重复序列。在宏基因组数据处理中，经常用于二代数据（经PCR建库）后的去除PCR重复。 去除PCR重复这本事是一件挺具有争议性的话题。首先，决定你到底需不需要做这一步的一个最重要的因素是要去调查清楚你的测序建库方法到底是不是PCR-free的，如果不是，才有做这一步的意义。另外，有相关的分析表明，PCR duplica">
+<meta property="og:description" content="最近在做一批宏基因组数据的拼接工作，这里的拼接主要指从Read到Contig这个水平。然后因为是第一次做，有很多没懂的地方，在学习和实践的过程中，总结了一下。写成几篇博客记录一下，以后又不清楚了可以回来看一下。这篇博客主要记录一下宏基因组拼接的算法之一——基于德布莱英图（De Bruijn graph）的方法。 一、为什么使用德布莱英图？对于短序列read的拼接有两种基本算法，一种是基于Overl">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-01-30T05:58:03.000Z">
-<meta property="article:modified_time" content="2024-01-30T06:15:50.913Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201025161548591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201025161558590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201025161609372.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201025161626796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201025161638631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2024-02-26T07:28:04.000Z">
+<meta property="article:modified_time" content="2024-02-28T03:21:57.784Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201025161548591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center">
   
   
   
-  <title>Clumpify.sh (from BBMap): Remove PCR Duplicates - Emmett&#39;s Note</title>
+  <title>基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接 - Emmett&#39;s Note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Clumpify.sh (from BBMap): Remove PCR Duplicates"></span>
+            <span id="subtitle" data-typed-text="基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接"></span>
           
         </div>
 
@@ -207,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-30 13:58" pubdate>
-          January 30, 2024 pm
+        <time datetime="2024-02-26 15:28" pubdate>
+          February 26, 2024 pm
         </time>
       </span>
     
@@ -219,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          826 words
+          3.2k words
         
       </span>
     
@@ -230,7 +236,7 @@
         
         
         
-          7 mins
+          27 mins
         
       </span>
     
@@ -267,21 +273,52 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Clumpify.sh (from BBMap): Remove PCR Duplicates</h1>
+            <h1 id="seo-header">基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>clumpify.sh实际上是BBMap工具中的一个脚本，本来的作用是去除重复序列。在宏基因组数据处理中，经常用于二代数据（经PCR建库）后的去除PCR重复。</p>
-<p>去除PCR重复这本事是一件挺具有争议性的话题。首先，决定你到底需不需要做这一步的一个最重要的因素是要去调查清楚你的测序建库方法到底是不是PCR-free的，如果不是，才有做这一步的意义。另外，有相关的分析表明，PCR duplicates的数量实际上是一个概率问题，因为它本身就是同一片段（的PCR产物）被反复测到的结果（<a target="_blank" rel="noopener" href="https://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing">参考</a>）。实际上，我看了很多文献（的材料方法）中也并没有单独提到需要做去PCR重复这件事。</p>
-<h2 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h2><p>-in1, -in2: Paired-end reads to be deduplicated<br>-out1, -out2: Output file paths</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">/path/to/bbmap/clumpify.sh \<br>    -in1=/path/to/clean_R1.fq \<br>    -in2=/path/to/clean_R2.fq \<br>    -out1=/path/to/dedupe_R1.fq \<br>    -out2=/path/to/dedupe_R2.fq \<br>    dedupe=t<br></code></pre></td></tr></table></figure>
-
-<h2 id="相关参考链接"><a href="#相关参考链接" class="headerlink" title="相关参考链接"></a>相关参考链接</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://www.biostars.org/p/347514/">https://www.biostars.org/p/347514/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing/">https://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing/</a></li>
-<li><a target="_blank" rel="noopener" href="https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/clumpify-guide/">https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/clumpify-guide/</a></li>
-<li><a target="_blank" rel="noopener" href="https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/dedupe-guide/">https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/dedupe-guide/</a></li>
+                <p>最近在做一批宏基因组数据的拼接工作，这里的拼接主要指从Read到Contig这个水平。然后因为是第一次做，有很多没懂的地方，在学习和实践的过程中，总结了一下。写成几篇博客记录一下，以后又不清楚了可以回来看一下。这篇博客主要记录一下宏基因组拼接的算法之一——基于德布莱英图（<em>De Bruijn</em> graph）的方法。</p>
+<h2 id="一、为什么使用德布莱英图？"><a href="#一、为什么使用德布莱英图？" class="headerlink" title="一、为什么使用德布莱英图？"></a>一、为什么使用德布莱英图？</h2><p>对于短序列read的拼接有两种基本算法，一种是基于Overlap Graph的算法，另一种是基于德布莱英图的算法。大多数为了桑格测序（Sanger sequencing）得到的测序数据拼接的算法都是基于Overlap Graph的，最典型的就是Overlap-layout-consensus方法，简称为OLC方法，这个方法通过两两之间有overlap区域的reads来构图，每个Read作为图中的点，而拥有足够的overlap则是建立图中的连接的基础。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201025161548591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>这种方式在处理序列数很有限，而且序列间overlap区域很明显的时候能取得最好的效果。一些对于二代测序数据设计的assembler使用了OLC方法，但是这种传统的方法计算量实在过大，就算是非常简单的物种的从头组装也需要上百万甚至上千万条序列，所以仍然使用OLC方法显然不太实际。而且二代测序数据的读长片段，现在来说250bp和300bp的读长都是属于新兴事物，想要在茫茫多的短序列中找到可供使用的overlap区域也是OLC方法面临的瓶颈之一。</p>
+<p>由于OLC方法跟不上更短的Read长度和更大的Read条数，更多的为二代测序数据拼接的assembler都选择了基于德布莱英图方法的，本文中将其简称为DBG，指<em>de Bruijn</em> graph。DBG方法通过将序列打断成更小的长度为<em>k</em>的小片段（称为<strong>k-mer</strong>）来降低计算的规模。对于一条长度为<em>N</em>的序列从头到尾（比如从5’-端到3‘-端）依次取k-mer一共可以取到*<em>N-k+1</em>个k-mer，每两个相邻的k-mer之间都有长度为k-1的overlap区域。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201025161558590.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>通过将序列打断为k-mers，德布莱英图方法降低了大量短序列数据集中的数据冗余性，就好比上图中的这条序列在被切为3-mers后，GAT这个k-mer是重复出现的，并在德布莱英图中被反复利用，也就达到了降低了整体数据量和计算量的目的。对于某一特定的组装来说，<strong>最大的有效k-mer size取决于读长和error rate，同时如何选择k的取值也是决定了组装质量的重要条件（我现在也正在调查研究这一点）。</strong>实际上，在拼接前是有方法可以先看看合适的k值的，比如<strong>kmergenie</strong>这款软件就可以给出一个预测的k-mer值。</p>
+<p>德布莱英图的另一个很优秀的特性就是在基因组中的一些重复片段会在德布莱英图中被打断，避免了一些错误的组装结果（当然不能很好地解决）。</p>
+<p><em>第一节的内容和图片整理来自：<a target="_blank" rel="noopener" href="https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf">https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf</a></em></p>
+<h2 id="二、从德布莱英图到拼接结果"><a href="#二、从德布莱英图到拼接结果" class="headerlink" title="二、从德布莱英图到拼接结果"></a>二、从德布莱英图到拼接结果</h2><p>对于某一组测序数据来说，通过相应的算法获得了德布莱英图，怎么将图转化为序列呢？首先我们必须知道，德布莱英图是具有<strong>欧拉图（Eulerian Graph）</strong>的性质的，也就是说我们需要寻找的通路（path）是一条遍历每个边至少一次的。当然我们也希望它是遍历每个点至少一次，但是<strong>哈密顿图（Hamiltonian Graph）</strong>作为世界难解的NP-Complete问题，还很难被归化成一个具有概括性的模型。</p>
+<p>根据上面的欧拉通路性质，对于下面的这组德布莱英图，我们认为它的拼接结果应该是GATTACATTACAA，或者说图中的ACA-CAT-ATT这个分支环路至少要被遍历一次。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201025161609372.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>事实上，当序列被打断为短k-mer后，序列的模糊性就变高了，就比如上图中的分支环路到底遍历几次，或者像下图这样的：</p>
+<p><img src="https://img-blog.csdnimg.cn/20201025161626796.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>好像有很多条通路都可以满足条件。所以在实际情况中，assembler返回的是一组子通路（substring）的集合，通过这些子通路就可以组装出多条通路。比如针对上面这张图，返回的子通路集合是这样的{ACTGA, GACC, GAGTG, GAATG}，其中第一个元素代表这个图的“入口”，第二个元素好代表这个图的“出口”，第三个元素代表的是上面蓝色的分支环路，第四个元素代表的是下面绿色的分支环路，通过按顺序选择分支就可以得到一条完整的路径。</p>
+<p>通过拼接得到的contig是不能有分支节点的，也就是说我们想要得到的就是简单的单一路径，或者说单一序列。所以如果我们最终得到的contig是下图这样的，我们就会把它们按分支节点拆开，作为最终的contig结果。</p>
+<p><img src="https://img-blog.csdnimg.cn/20201025161638631.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0VtbWV0dF9CaW9pbmZv,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
+<p>这一部分其实还有大佬讲的更详细一点，参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54466660%E3%80%82">https://zhuanlan.zhihu.com/p/54466660。</a></p>
+<h2 id="三、几个值得关注的问题（之后边学习边写）"><a href="#三、几个值得关注的问题（之后边学习边写）" class="headerlink" title="三、几个值得关注的问题（之后边学习边写）"></a>三、几个值得关注的问题（之后边学习边写）</h2><p>以上就是我现在比较关心的从read到contig的这样一个拼接过程的简单流程，但是在<strong>实用阶段</strong>中还有如下几个问题：</p>
+<ol>
+<li>以上介绍的都是单k-mer实现序列拼接，但是现在的Assemblers普遍输入k-mer list，也就是说它会有多个k值进行迭代式的拼接。为什么要用multi-k-mer的方法？k值以及k-max、k-min该如何选择？</li>
+<li>Assembler的参数该如何选择？或者说该如何针对不同的数据情况选择？</li>
+<li>德布莱英图只是一个基础，不同的Assembler，比如Megahit、MetaSPAdes、IDBA-UD等都在DBG的方法上进行了自己的改良优化，它们的详细原理是什么（关系到它们的适用场景和参数选择）？</li>
+<li>还有很多使用中遇到的问题……</li>
+</ol>
+<p>在学习的过程中写了这些笔记，整理出来发成一个文档集。之后应该还会写以上几个问题的学习笔记和几款Assembler的使用说明（弄清楚了咋整的之后……），stay tuned :)</p>
+<h3 id="参考文献和学习资料："><a href="#参考文献和学习资料：" class="headerlink" title="参考文献和学习资料："></a>参考文献和学习资料：</h3><ol>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54466660">https://zhuanlan.zhihu.com/p/54466660</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.cs.bilkent.edu.tr/~calkan/teaching/cs481/pdfslides/20-cs481-intro_to_assembly.pdf">http://www.cs.bilkent.edu.tr/~calkan/teaching/cs481/pdfslides/20-cs481-intro_to_assembly.pdf</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-1.pdf">http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-1.pdf</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-2.pdf">http://compbio.charite.de/tl_files/groupmembers/robinson/genome-assembly-2.pdf</a></p>
+</li>
+<li><p>Pasolli E, Asnicar F, Manara S, et al. Extensive Unexplored Human Microbiome Diversity Revealed by Over 150,000 Genomes from Metagenomes Spanning Age, Geography, and Lifestyle. Cell. 2019;176(3):649-662.e20. doi:10.1016&#x2F;j.cell.2019.01.001</p>
+</li>
+<li><p>Forouzan E, Shariati P, Mousavi Maleki MS, Karkhane AA, Yakhchali B. Practical evaluation of 11 de novo assemblers in metagenome assembly. J Microbiol Methods. 2018 Aug;151:99-105. doi: 10.1016&#x2F;j.mimet.2018.06.007. Epub 2018 Jun 25. PMID: 29953874.</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf">https://banana-slug.soe.ucsc.edu/_media/bioinformatic_tools:abyss_technote_illumina.pdf</a></p>
+</li>
 </ol>
 
                 
@@ -321,8 +358,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Clumpify.sh (from BBMap): Remove PCR Duplicates</div>
-      <div>https://emmettpeng.github.io/2024/01/30/clumpify/</div>
+      <div>基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接</div>
+      <div>https://emmettpeng.github.io/2024/02/26/de-bruijn-graph/</div>
     </div>
     <div class="license-meta">
       
@@ -334,7 +371,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>January 30, 2024</div>
+          <div>February 26, 2024</div>
         </div>
       
       
@@ -366,9 +403,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/26/de-bruijn-graph/" title="基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接">
+                      <a href="/2024/02/28/megahit/" title="Megahit: 高效迅速的metagenome assembler">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接</span>
+                        <span class="hidden-mobile">Megahit: 高效迅速的metagenome assembler</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -376,8 +413,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/26/trimmomatic/" title="Trimmomatic: Reads Quality Control">
-                        <span class="hidden-mobile">Trimmomatic: Reads Quality Control</span>
+                      <a href="/2024/01/30/clumpify/" title="Clumpify.sh (from BBMap): Remove PCR Duplicates">
+                        <span class="hidden-mobile">Clumpify.sh (from BBMap): Remove PCR Duplicates</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

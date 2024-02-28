@@ -16,21 +16,21 @@
   <meta name="author" content="Emmett Peng">
   <meta name="keywords" content="">
   
-    <meta name="description" content="软件简介clumpify.sh实际上是BBMap工具中的一个脚本，本来的作用是去除重复序列。在宏基因组数据处理中，经常用于二代数据（经PCR建库）后的去除PCR重复。 去除PCR重复这本事是一件挺具有争议性的话题。首先，决定你到底需不需要做这一步的一个最重要的因素是要去调查清楚你的测序建库方法到底是不是PCR-free的，如果不是，才有做这一步的意义。另外，有相关的分析表明，PCR duplica">
+    <meta name="description" content="软件简介Megahit是基因组组装方面最常用且高效的软件之一。它主要的原理是基于k-mer迭代的德布莱英图方法。关于对德布莱英图的初步解读我写在另一篇blog里面。 在我的宏基因组数据处理中，megahit是和metaSPAdes、IDBA-UD等软件一起常被用到的，对我来说，它的主要优势是速度快、且占用运存小。我在运行一下测试数据，需要查看大概的结果的时候，会经常用到megahit。 参数列表-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Clumpify.sh (from BBMap): Remove PCR Duplicates">
-<meta property="og:url" content="https://emmettpeng.github.io/2024/01/30/clumpify/index.html">
+<meta property="og:title" content="Megahit: 高效迅速的metagenome assembler">
+<meta property="og:url" content="https://emmettpeng.github.io/2024/02/28/megahit/index.html">
 <meta property="og:site_name" content="Emmett&#39;s Note">
-<meta property="og:description" content="软件简介clumpify.sh实际上是BBMap工具中的一个脚本，本来的作用是去除重复序列。在宏基因组数据处理中，经常用于二代数据（经PCR建库）后的去除PCR重复。 去除PCR重复这本事是一件挺具有争议性的话题。首先，决定你到底需不需要做这一步的一个最重要的因素是要去调查清楚你的测序建库方法到底是不是PCR-free的，如果不是，才有做这一步的意义。另外，有相关的分析表明，PCR duplica">
+<meta property="og:description" content="软件简介Megahit是基因组组装方面最常用且高效的软件之一。它主要的原理是基于k-mer迭代的德布莱英图方法。关于对德布莱英图的初步解读我写在另一篇blog里面。 在我的宏基因组数据处理中，megahit是和metaSPAdes、IDBA-UD等软件一起常被用到的，对我来说，它的主要优势是速度快、且占用运存小。我在运行一下测试数据，需要查看大概的结果的时候，会经常用到megahit。 参数列表-">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-01-30T05:58:03.000Z">
-<meta property="article:modified_time" content="2024-01-30T06:15:50.913Z">
+<meta property="article:published_time" content="2024-02-28T02:53:28.000Z">
+<meta property="article:modified_time" content="2024-02-28T03:20:19.799Z">
 <meta property="article:author" content="Emmett Peng">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Clumpify.sh (from BBMap): Remove PCR Duplicates - Emmett&#39;s Note</title>
+  <title>Megahit: 高效迅速的metagenome assembler - Emmett&#39;s Note</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Clumpify.sh (from BBMap): Remove PCR Duplicates"></span>
+            <span id="subtitle" data-typed-text="Megahit: 高效迅速的metagenome assembler"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-30 13:58" pubdate>
-          January 30, 2024 pm
+        <time datetime="2024-02-28 10:53" pubdate>
+          February 28, 2024 am
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          826 words
+          371 words
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          7 mins
+          4 mins
         
       </span>
     
@@ -267,21 +267,18 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Clumpify.sh (from BBMap): Remove PCR Duplicates</h1>
+            <h1 id="seo-header">Megahit: 高效迅速的metagenome assembler</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>clumpify.sh实际上是BBMap工具中的一个脚本，本来的作用是去除重复序列。在宏基因组数据处理中，经常用于二代数据（经PCR建库）后的去除PCR重复。</p>
-<p>去除PCR重复这本事是一件挺具有争议性的话题。首先，决定你到底需不需要做这一步的一个最重要的因素是要去调查清楚你的测序建库方法到底是不是PCR-free的，如果不是，才有做这一步的意义。另外，有相关的分析表明，PCR duplicates的数量实际上是一个概率问题，因为它本身就是同一片段（的PCR产物）被反复测到的结果（<a target="_blank" rel="noopener" href="https://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing">参考</a>）。实际上，我看了很多文献（的材料方法）中也并没有单独提到需要做去PCR重复这件事。</p>
-<h2 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h2><p>-in1, -in2: Paired-end reads to be deduplicated<br>-out1, -out2: Output file paths</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">/path/to/bbmap/clumpify.sh \<br>    -in1=/path/to/clean_R1.fq \<br>    -in2=/path/to/clean_R2.fq \<br>    -out1=/path/to/dedupe_R1.fq \<br>    -out2=/path/to/dedupe_R2.fq \<br>    dedupe=t<br></code></pre></td></tr></table></figure>
+                <h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>Megahit是基因组组装方面最常用且高效的软件之一。它主要的原理是基于k-mer迭代的德布莱英图方法。关于对德布莱英图的初步解读我写在另一篇blog里面。</p>
+<p>在我的宏基因组数据处理中，megahit是和metaSPAdes、IDBA-UD等软件一起常被用到的，对我来说，它的主要优势是<strong>速度快、且占用运存小</strong>。我在运行一下测试数据，需要查看大概的结果的时候，会经常用到megahit。</p>
+<h2 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h2><p>-1, -2, -o: 最常用的双端测序<br>-r, -o: 单端测序数据</p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">megahit -1 /path/to/R1.fq -2 /path/to/R2.fq -o /path/to/out_dir<br></code></pre></td></tr></table></figure>
 
 <h2 id="相关参考链接"><a href="#相关参考链接" class="headerlink" title="相关参考链接"></a>相关参考链接</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://www.biostars.org/p/347514/">https://www.biostars.org/p/347514/</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing/">https://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing/</a></li>
-<li><a target="_blank" rel="noopener" href="https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/clumpify-guide/">https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/clumpify-guide/</a></li>
-<li><a target="_blank" rel="noopener" href="https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/dedupe-guide/">https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/dedupe-guide/</a></li>
+<li><a target="_blank" rel="noopener" href="https://academic.oup.com/bioinformatics/article/31/10/1674/177884?login=false">https://academic.oup.com/bioinformatics/article/31/10/1674/177884?login=false</a></li>
 </ol>
 
                 
@@ -321,8 +318,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Clumpify.sh (from BBMap): Remove PCR Duplicates</div>
-      <div>https://emmettpeng.github.io/2024/01/30/clumpify/</div>
+      <div>Megahit: 高效迅速的metagenome assembler</div>
+      <div>https://emmettpeng.github.io/2024/02/28/megahit/</div>
     </div>
     <div class="license-meta">
       
@@ -334,7 +331,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>January 30, 2024</div>
+          <div>February 28, 2024</div>
         </div>
       
       
@@ -366,18 +363,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/26/de-bruijn-graph/" title="基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/26/trimmomatic/" title="Trimmomatic: Reads Quality Control">
-                        <span class="hidden-mobile">Trimmomatic: Reads Quality Control</span>
+                      <a href="/2024/02/26/de-bruijn-graph/" title="基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接">
+                        <span class="hidden-mobile">基于德布莱英图（De Bruijn graph）的宏基因组de novo拼接</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
