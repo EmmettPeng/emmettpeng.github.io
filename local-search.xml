@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>MetaSPAdes: 最全能的宏基因组组装工具</title>
+    <link href="/2024/07/13/metaspades/"/>
+    <url>/2024/07/13/metaspades/</url>
+    
+    <content type="html"><![CDATA[<h2 id="软件简介"><a href="#软件简介" class="headerlink" title="软件简介"></a>软件简介</h2><p>SPAdes是基因组组装的经典工具之一。这里我们所说的metaSPAdes，是SPAdes所提供的宏基因组组装模式。与megahit类似，它的原理同样是基于k-mer迭代的德布莱英图方法。在各种组装工具的评测论文中（如：<a href="https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-017-3918-9">Assembling metagenomes, one community at a time (BMC Genomics); </a> <a href="https://www.sciencedirect.com/science/article/pii/S0167701218301210#ab0010">Practical evaluation of 11 de novo assemblers in metagenome assembly (Journal of Microbiological Methods)</a>），研究者们推荐在进行宏基因组序列组装时，如果具有充足的运行内存（RAM），metaSPAdes优于megahit。</p><p>在我的宏基因组数据处理中，metaSPAdes被大量应用，然而，它常常会因为运存不足而中途退出。</p><p>metaSPAdes会自动识别读长类型（如100bp、150bp和250bp等）并自动选择k-mer list类型。</p><h2 id="参数列表"><a href="#参数列表" class="headerlink" title="参数列表"></a>参数列表</h2><p>-o 输出目录<br>-1,-2 双端Reads文件<br>-t 线程数<br>-m 最大内存限定（Gb）<br>-k k-mer list，对于250bp推荐填写：21,33,55,77,99,127</p><p>在确定metaSPAdes的参数时，应仔细查看以下帮助页：<a href="https://ablab.github.io/spades/datatypes.html%E3%80%82">https://ablab.github.io/spades/datatypes.html。</a></p><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">metaspades.py -o outdir -1 R1.fastq -2 R2.fastq -t 48 -m 500 -k 21,33,55,77,99,127<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Bioinformatics tool</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Nature | Three ways ChatGPT helps me in my academic writing</title>
     <link href="/2024/06/24/ai-chatbot-01/"/>
     <url>/2024/06/24/ai-chatbot-01/</url>
